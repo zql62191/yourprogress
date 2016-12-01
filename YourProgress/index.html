@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+
+        #outsideBox {
+            border: 1px solid #000;
+            border-radius: 20px;
+            padding: 60px 30px 30px 30px;
+            background: #DCDCDC;
+            width: 90%;
+        }
+
+        #Yprogress{
+            border: 1px solid #000;
+            border-radius: 20px 20px 10px 10px;
+            background: #000;
+            color: #fff;
+            position: absolute;
+            width: 94%;
+            margin: 0;
+            height: 30px;
+            padding: 10px 0 0 20px;
+        }
+
+        #innerBox {
+            border: 1px solid #000;
+            border-radius: 25px;
+            padding: 20px;
+            background: #fff;
+        }
+
+        #whole{
+            width: 100%;
+            display: flex;
+        }
+
+        #position {
+            width: 70%;
+            display: flex;
+            margin-top: 25px;
+        }
+
+        #reach {
+            font-size: 18px;
+            font-weight: 800;
+            margin:0 10px 0 0;
+        }
+
+        #firstline {
+            width: 100%;
+        }
+
+        #myProgress {
+            position: relative;
+            width: 100%;
+            height: 18px;
+            background-color: #ddd;
+        }
+
+        #myBar {
+            width: 0%;
+            height: 100%;
+            background-color: #4CAF50;
+        }
+
+        #target {
+            height: 50px;
+            width: 80px;
+            background: #808080;
+            text-align: center;
+            color: white;
+            padding-bottom: 12px;
+            border: 3px solid #000;
+            margin-left: 1px;
+        }
+
+        #label {
+            margin-left: 0;
+            line-height: 30px;
+            color: black;
+        }
+
+        #arrow {
+            position: relative;
+            top: 3pt;
+            content: "";
+            display: inline-block;
+
+            width: 0.4em;
+            height: 0.4em;
+            border-right: 0.2em solid black;
+            border-top: 0.2em solid black;
+            transform: rotate(45deg);
+            margin-right: 0.5em;
+
+            -ms-transform: rotate(-45deg); /* IE 9 */
+            -webkit-transform: rotate(-45deg); /* Chrome, Safari, Opera */
+            transform: rotate(-45deg);
+        }
+
+    </style>
+</head>
+<body>
+<div id="Yprogress">Your Progress</div>
+<div id="outsideBox">
+    <div id="innerBox">
+        <div id="whole">
+            <div id="position">
+
+                <p id="reach">Reached:</p>
+
+                <div id="firstline">
+                    <div id="myProgress">
+                        <div id="myBar">
+                        </div>
+                    </div>
+
+                    <div id="arrow"></div>
+                    <div id="label"><p>$0</p></div>
+                </div>
+            </div>
+
+            <div id="target">
+                <p>Target<br>$125</p>
+            </div>
+        </div>
+
+        <p>You need $<span id="leftTarget"></span> more to reach your target.</p>
+
+    </div>
+</div>
+
+<script>
+
+    function move() {
+        var elem = document.getElementById("myBar");
+        var elemNum = document.getElementById("label");
+        var elemArr = document.getElementById("arrow");
+        var width = 0;
+        var id = setInterval(frame, 60);
+        function frame() {
+            if (width >= (56/125)*100) {
+                clearInterval(id);
+            } else {
+                width++;
+                elem.style.width = width + '%';
+                elemArr.style.marginLeft = (width-1) + '%';
+                elemNum.style.marginLeft = (width-3) + '%';
+                document.getElementById("label").innerHTML = '$' + Math.round(width * 1.25);
+                document.getElementById("leftTarget").innerHTML = 125 - Math.round(width * 1.25);
+            }
+        }
+    }
+
+    move();
+
+</script>
+
+</body>
+</html>
